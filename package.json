@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.config.js",
-    "build": "npm run clear && webpack --config webpack.config.js",
+    "dev": "webpack-dev-server --config build/webpack.config.js",
+    "build": "npm run clear && webpack --config build/webpack.config.js",
     "clear": "rimraf dist"
   },
   "keywords": [],
@@ -33,7 +33,10 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "muse-ui": "^3.0.1",
-    "vue": "^2.5.21"
+    "vue": "^2.5.21",
+    "vue-router": "^3.0.2",
+    "vuex": "^3.0.1"
   }
 }

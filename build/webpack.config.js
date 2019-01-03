@@ -10,19 +10,19 @@ function resolve(dir) {
 
 module.exports = {
   mode: 'development',
-  entry: path.join(__dirname, './src/index.js'),
+  entry: path.join(__dirname, '../src/index.js'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, '../dist')
   },
   module: {
     rules: [{
         test: /.jsx?$/,
         include: [
-          path.resolve(__dirname, 'src')
+          path.resolve(__dirname, '../src')
         ],
         exclude: [
-          path.resolve(__dirname, 'node_modules'),
+          path.resolve(__dirname, '../node_modules'),
         ],
         loader: 'babel-loader',
         query: {
@@ -40,12 +40,16 @@ module.exports = {
         // loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader"),
         // exclude: /node_modules/
       },
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader",
+      },
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.join(__dirname, './src/index.html'),
+      template: path.join(__dirname, '../src/index.html'),
       // inject: true
     }),
     new VueLoaderPlugin(),
@@ -62,8 +66,17 @@ module.exports = {
   devServer: {
     // publicPath: path.join('/dist/'),
     port: 8888,
-    contentBase: path.join(__dirname, './dist'),
+    contentBase: path.join(__dirname, '../dist'),
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://www.vue-js.com/',
+        pathRewrite: {
+          '^/api': '/api/v1/'
+        },
+        changeOrigin: true
+      }
+    }
   }
 };
